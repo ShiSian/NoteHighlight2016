@@ -37,35 +37,16 @@ namespace NoteHighlightAddin
 
 	public class AddIn : IDTExtensibility2, IRibbonExtensibility
 	{
-		protected Application OneNoteApplication
-		{ get; set; }
 
-        public XNamespace ns;
-
-        private MainForm mainForm;
-
-        string tag;
-
-        private bool QuickStyle { get; set; }
-
-        private bool DarkMode { get; set; }
-
-        public AddIn()
-		{
-		}
-
-		/// <summary>
-		/// Returns the XML in Ribbon.xml so OneNote knows how to render our ribbon
-		/// </summary>
-		/// <param name="RibbonID"></param>
-		/// <returns></returns>
-		public string GetCustomUI(string RibbonID)
-		{
-            return LoadRibbon();
-
-        }
-
-        private string LoadRibbon()
+        #region /*****【接口实现】*****/
+        /// <summary>
+        /// IRibbonExtensibility接口
+        /// 一个用于自定义 Microsoft Office 应用程序的 Ribbon 用户界面 (UI) 的接口。
+        /// 这个接口提供了一种机制，允许开发者定义和修改 Ribbon 的元素，
+        /// 如标签、按钮、下拉菜单等。它是在为 Office 创建 Add-ins 或扩展时经常使用的接口。
+        /// </summary>
+        // GetCustomUI：当 Office 应用程序需要加载 Ribbon 的自定义 UI 时，它会调用此方法。这个方法返回一个包含 Ribbon 定义的 XML 字符串。
+        public string GetCustomUI(string RibbonID)
         {
             try
             {
@@ -82,70 +63,121 @@ namespace NoteHighlightAddin
                 MessageBox.Show("Exception from Addin.LoadRibbon:" + e.Message);
                 return "";
             }
-
-
-
         }
 
+
+        /// <summary>
+        /// 【IDTExtensibility2接口】
+        ///  一个 COM 接口，主要用于创建 Visual Studio 的 Add-ins 或其他 Microsoft Office 应用程序（如 Excel、Word、Outlook 等）的扩展。
+        /// 这个接口提供了一组事件，允许开发者在 Add-in 的生命周期的不同阶段执行特定的操作，如加载、卸载、启动和关闭等。
+        /// </summary>
+        // OnConnection：当 Add-in 被加载到宿主应用程序中时触发。例如，当用户启动应用程序或手动加载 Add-in 时。
+        public void OnConnection(object Application, ext_ConnectMode ConnectMode, object AddInInst, ref Array custom)
+        {
+            OneNoteApplication = (Application)Application;
+        }
+        // OnDisconnection:当 Add-in 从宿主应用程序中卸载时触发。这可以是用户手动卸载 Add-in，或是当应用程序关闭时。
+        [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.GC.Collect")]
+        public void OnDisconnection(ext_DisconnectMode RemoveMode, ref Array custom)
+        {
+            OneNoteApplication = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
+        // OnAddInsUpdate:当 Add-ins 的集合发生更改时触发。
         public void OnAddInsUpdate(ref Array custom)
+        {
+        }
+        // OnStartupComplete:在宿主应用程序完成启动并加载所有 Add-ins 后触发。
+        public void OnStartupComplete(ref Array custom)
+        {
+        }
+        // OnBeginShutdown:在开始关闭宿主应用程序前触发。
+        public void OnBeginShutdown(ref Array custom)
+        {
+            this.mainForm?.Invoke(new Action(() =>
+            {
+                // close the form on the forms thread
+                this.mainForm?.Close();
+                this.mainForm = null;
+            }));
+        }
+        #endregion
+
+
+
+
+        // OneNote程序
+        protected Application OneNoteApplication{ get; set; }
+        public XNamespace ns;
+        // 代码窗口
+        private MainForm mainForm;
+        string tag;
+        private bool QuickStyle { get; set; }
+        private bool DarkMode { get; set; }
+
+
+
+
+
+    #region /*****【函数部分】*****/
+        // 获取当前激活的OneNote页面ID
+        private string GetActivedPageID()
+        {
+            Windows OneNoteWindows = OneNoteApplication.Windows;
+            Window OneNoteActiveWindow = OneNoteWindows.CurrentWindow;
+            return OneNoteActiveWindow.CurrentPageId;
+        }
+        // 获取鼠标位置
+        private string[] GetMousePointPosition(string pageXml)
+        {
+            var node = XDocument.Parse(pageXml).Descendants(ns + "Outline")
+                                               .Where(n => n.Attribute("selected") != null && n.Attribute("selected").Value == "partial")
+                                               .FirstOrDefault();
+            if (node != null)
+            {
+                var attrPos = node.Descendants(ns + "Position").FirstOrDefault();
+                if (attrPos != null)
+                {
+                    var x = attrPos.Attribute("x").Value;
+                    var y = attrPos.Attribute("y").Value;
+                    return new string[] { x, y };
+                }
+            }
+            return null;
+        }
+
+        // 测试函数
+        [CLSCompliant(false)]
+        public void ShowTestInfo2(IRibbonControl control)
+        {
+            string CurrentPageID = GetActivedPageID();
+            string PageContent;
+            OneNoteApplication.GetPageContent(CurrentPageID, out PageContent);
+            MessageBox.Show(PageContent);
+        }
+
+
+
+    #endregion
+
+
+
+
+        public AddIn()
 		{
 		}
 
-		/// <summary>
-		/// Cleanup
-		/// </summary>
-		/// <param name="custom"></param>
-		public void OnBeginShutdown(ref Array custom)
-		{
-			this.mainForm?.Invoke(new Action(() =>
-			{
-				// close the form on the forms thread
-				this.mainForm?.Close();
-				this.mainForm = null;
-			}));
-		}
 
-		/// <summary>
-		/// Called upon startup.
-		/// Keeps a reference to the current OneNote application object.
-		/// </summary>
-		/// <param name="application"></param>
-		/// <param name="connectMode"></param>
-		/// <param name="addInInst"></param>
-		/// <param name="custom"></param>
-		public void OnConnection(object Application, ext_ConnectMode ConnectMode, object AddInInst, ref Array custom)
-		{
-			SetOneNoteApplication((Application)Application);
-		}
 
-		public void SetOneNoteApplication(Application application)
-		{
-			OneNoteApplication = application;
-		}
-
-		/// <summary>
-		/// Cleanup
-		/// </summary>
-		/// <param name="RemoveMode"></param>
-		/// <param name="custom"></param>
-		[SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.GC.Collect")]
-		public void OnDisconnection(ext_DisconnectMode RemoveMode, ref Array custom)
-		{
-			OneNoteApplication = null;
-			GC.Collect();
-			GC.WaitForPendingFinalizers();
-		}
-
-		public void OnStartupComplete(ref Array custom)
-		{
-		}
-
+        [CLSCompliant(false)]
         public bool cbQuickStyle_GetPressed(IRibbonControl control)
         {
             this.QuickStyle = NoteHighlightForm.Properties.Settings.Default.QuickStyle;
             return this.QuickStyle;
         }
 
+        [CLSCompliant(false)]
         public void cbQuickStyle_OnAction(IRibbonControl control, bool isPressed)
         {
             this.QuickStyle = isPressed;
@@ -153,13 +185,14 @@ namespace NoteHighlightAddin
             NoteHighlightForm.Properties.Settings.Default.Save();
         }
 
-
+        [CLSCompliant(false)]
         public bool cbDarkMode_GetPressed(IRibbonControl control)
         {
             this.DarkMode = NoteHighlightForm.Properties.Settings.Default.DarkMode;
             return this.DarkMode;
         }
 
+        [CLSCompliant(false)]
         public void cbDarkMOde_OnAction(IRibbonControl control, bool isPressed)
         {
             this.DarkMode = isPressed;
@@ -168,6 +201,7 @@ namespace NoteHighlightAddin
         }
 
         //public async Task AddInButtonClicked(IRibbonControl control)
+        [CLSCompliant(false)]
         public void AddInButtonClicked(IRibbonControl control)
         {
             try
@@ -182,10 +216,6 @@ namespace NoteHighlightAddin
             {
                 MessageBox.Show("Exception from AddInButtonClicked: "+ e.ToString());
             }
-
-            //t.Join(5000);
-
-            //ShowForm();
         }
 
         private void ShowForm()
@@ -193,17 +223,6 @@ namespace NoteHighlightAddin
             try
             {
                 string outFileName = Guid.NewGuid().ToString();
-
-                //try
-                //{
-                //ProcessHelper processHelper = new ProcessHelper("NoteHighLightForm.exe", new string[] { control.Tag, outFileName });
-                //processHelper.IsWaitForInputIdle = true;
-                //processHelper.ProcessStart();
-
-                //CodeForm form = new CodeForm(tag, outFileName);
-                //form.ShowDialog();
-
-                //TestForm t = new TestForm();
                 var pageNode = GetPageNode();
                 string pageXml = GetPageXml(pageNode.Attribute("ID").Value);
                 string selectedText = "";
@@ -223,13 +242,6 @@ namespace NoteHighlightAddin
                 MainForm form = new MainForm(tag, outFileName, selectedText, this.QuickStyle, this.DarkMode);
 
                 System.Windows.Forms.Application.Run(form);
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("Error executing NoteHighLightForm.exe：" + ex.Message);
-                //    return;
-                //}
-
                 string fileName = Path.Combine(Path.GetTempPath(), outFileName + ".html");
 
                 if (File.Exists(fileName))
@@ -243,6 +255,11 @@ namespace NoteHighlightAddin
             }
         }
 
+
+
+
+
+        [CLSCompliant(false)]
         public void SettingsButtonClicked(IRibbonControl control)
         {
             try
@@ -300,10 +317,7 @@ namespace NoteHighlightAddin
             return new CCOMStreamWrapper(imageStream);
 		}
 
-        /// <summary>
-        /// 插入 HighLight Code 至滑鼠游標的位置
-        /// Insert HighLight Code To Mouse Position  
-        /// </summary>
+        // 插入生成好的代码到光标所在位置
         private void InsertHighLightCodeToCurrentSide(string fileName, string pageXml, HighLightParameter parameters, XElement outline, bool selectedTextFormated)
         {
             try
@@ -343,6 +357,8 @@ namespace NoteHighlightAddin
             }
         }
 
+
+
         XElement GetPageNode()
         {
             string notebookXml;
@@ -365,27 +381,7 @@ namespace NoteHighlightAddin
             return pageNode;
         }
 
-        /// <summary>
-        /// 取得滑鼠所在的點
-        /// Get Mouse Point
-        /// </summary>
-        private string[] GetMousePointPosition(string pageXml)
-        {
-            var node = XDocument.Parse(pageXml).Descendants(ns + "Outline")
-                                               .Where(n => n.Attribute("selected") != null && n.Attribute("selected").Value == "partial")
-                                               .FirstOrDefault();
-            if (node != null)
-            {
-                var attrPos = node.Descendants(ns + "Position").FirstOrDefault();
-                if (attrPos != null)
-                {
-                    var x = attrPos.Attribute("x").Value;
-                    var y = attrPos.Attribute("y").Value;
-                    return new string[] { x, y };
-                }
-            }
-            return null;
-        }
+
 
         private XElement GetOutline(string pageXml)
         {
@@ -406,6 +402,8 @@ namespace NoteHighlightAddin
 
             return node;
         }
+
+
 
         private string GetPageXml(string pageID)
         {
@@ -457,6 +455,7 @@ namespace NoteHighlightAddin
             return sb.ToString().TrimEnd('\r','\n');
         }
 
+        [CLSCompliant(false)]
         public bool IsSelectedTextInline(string pageXml)
         {
             var node = XDocument.Parse(pageXml).Descendants(ns + "Outline")
@@ -487,6 +486,7 @@ namespace NoteHighlightAddin
         /// 產生 XML 插入至 OneNote
         /// Generate XML Insert To OneNote
         /// </summary>
+        [CLSCompliant(false)]
         public XDocument InsertHighLightCode(string htmlContent, string[] position, HighLightParameter parameters, XElement outline, HighLightSection config, bool selectedTextFormated, bool isInline)
         {
             XElement children = PrepareFormatedContent(htmlContent, parameters, config, isInline);

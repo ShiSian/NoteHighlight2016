@@ -45,6 +45,7 @@ namespace NoteHighlightAddin
 
         private Color BackgroundColor { get { return this.btnBackground.BackColor; } }
 
+        [CLSCompliant(false)]
         public HighLightParameter Parameters { get { return _parameters; } }
 
         private bool _quickStyle;
