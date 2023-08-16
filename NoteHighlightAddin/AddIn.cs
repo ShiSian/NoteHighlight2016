@@ -154,7 +154,11 @@ namespace NoteHighlightAddin
             string CurrentPageID = GetActivedPageID();
             string PageContent;
             OneNoteApplication.GetPageContent(CurrentPageID, out PageContent);
-            MessageBox.Show(PageContent);
+
+            string FilePath = @"D:\PageContent.txt";
+            File.WriteAllText(FilePath, PageContent);
+
+            MessageBox.Show("Succeed save file.");
         }
 
 
@@ -388,17 +392,6 @@ namespace NoteHighlightAddin
             var node = XDocument.Parse(pageXml).Descendants(ns + "Outline")
                                                .Where(n => n.Attribute("selected") != null && (n.Attribute("selected").Value == "all" || n.Attribute("selected").Value == "partial"))
                                                .FirstOrDefault();
-            //if (node != null)
-            //{
-            //    var attrPos = node.Descendants(ns + "Position").FirstOrDefault();
-            //    if (attrPos != null)
-            //    {
-            //        var x = attrPos.Attribute("x").Value;
-            //        var y = attrPos.Attribute("y").Value;
-            //        return new string[] { x, y };
-            //    }
-            //}
-            //return null;
 
             return node;
         }
