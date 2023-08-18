@@ -156,7 +156,7 @@ namespace NoteHighlightAddin
             OneNoteApplication.GetPageContent(CurrentPageID, out PageContent);
 
             string FilePath = @"D:\PageContent.txt";
-            File.WriteAllText(FilePath, PageContent);
+            File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
 
             MessageBox.Show("Succeed save file.");
         }
