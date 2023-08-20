@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33927.289
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteHighlightAddin", "NoteHighlightAddin\NoteHighlightAddin.csproj", "{D874E185-08FE-48C5-BADE-0FE84060C978}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{288265D6-3A52-46A9-9B15-2BAD1B9F3C02}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupX64", "Setup\Setup.vdproj", "{288265D6-3A52-46A9-9B15-2BAD1B9F3C02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Helper\Helper.csproj", "{391303F3-B2F5-45DC-9D0D-F4D6D3A76A5D}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupX86", "SetupX86\SetupX86.vdproj", "{610B97A7-752E-4501-8415-A40251735F85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{3E05522E-BD98-4813-8430-83AE4F320EB2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D874E185-08FE-48C5-BADE-0FE84060C978} = {D874E185-08FE-48C5-BADE-0FE84060C978}
+		{04F98CFF-6895-4B84-AC32-23AB8684EA43} = {04F98CFF-6895-4B84-AC32-23AB8684EA43}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -136,5 +140,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CEDE4890-DE44-49C6-AA55-D19E7407BFB4}
 	EndGlobalSection
 EndGlobal

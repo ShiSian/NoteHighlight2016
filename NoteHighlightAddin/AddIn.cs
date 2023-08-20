@@ -15,6 +15,8 @@ using Extensibility;
 using Microsoft.Office.Core;
 using NoteHighlightAddin.Utilities;
 using Application = Microsoft.Office.Interop.OneNote.Application;  // Conflicts with System.Windows.Forms
+//using Application233 = Microsoft.Office.Interop.OneNote. // Conflicts with System.Windows.Forms
+
 using System.Reflection;
 using System.Drawing;
 using Microsoft.Office.Interop.OneNote;
