@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Helper.OneData
 {
-    class QuickStyleDef
+    public class QuickStyleDef
     {
         private string index;
 

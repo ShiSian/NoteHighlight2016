@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml.Linq;
 
 namespace Helper.OneData
 {
-    class OnePage
+    public class OnePage
     {
         private string id;
         private string name;
@@ -16,10 +16,16 @@ namespace Helper.OneData
         private string pageLevel;
         private string isCurrentlyViewed;
         private string lang;
-        private List<QuickStyleDef> quickStyleDef;
+        private List<QuickStyleDef> quickStyleDefs;
 
+        public OnePage()
+        {
 
+        }
+        public OnePage(XDocument document)
+        {
 
+        }
 
 
 
@@ -58,10 +64,10 @@ namespace Helper.OneData
             get { return lang; }
             set { lang = value; }
         }
-        public List<QuickStyleDef> QuickStyleDef
+        public List<QuickStyleDef> QuickStyleDefs
         {
-            get { return quickStyleDef; }
-            set { quickStyleDef = value; }
+            get { return quickStyleDefs; }
+            set { quickStyleDefs = value; }
         }
 
 

@@ -16,7 +16,6 @@ using Microsoft.Office.Core;
 using NoteHighlightAddin.Utilities;
 using Application = Microsoft.Office.Interop.OneNote.Application;  // Conflicts with System.Windows.Forms
 //using Application233 = Microsoft.Office.Interop.OneNote. // Conflicts with System.Windows.Forms
-
 using System.Reflection;
 using System.Drawing;
 using Microsoft.Office.Interop.OneNote;
@@ -29,6 +28,7 @@ using System.Web;
 using GenerateHighlightContent;
 using System.Configuration;
 using System.Globalization;
+using Helper.OneData;
 
 #pragma warning disable CS3003 // Type is not CLS-compliant
 
@@ -157,6 +157,11 @@ namespace NoteHighlightAddin
             string PageContent;
             OneNoteApplication.GetPageContent(CurrentPageID, out PageContent);
 
+            if(!string.IsNullOrEmpty(PageContent))
+            {
+
+            }
+
             string FilePath = @"D:\PageContent.txt";
             File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
 
@@ -165,8 +170,13 @@ namespace NoteHighlightAddin
 
 
 
-    #endregion
+        #endregion
 
+        [CLSCompliant(false)]
+        public OnePage GetCurrentPage()
+        {
+            return null;
+        }
 
 
 

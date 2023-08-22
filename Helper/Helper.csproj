@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OneData\OnePage.cs" />
+    <Compile Include="OneData\OneTitle.cs" />
     <Compile Include="OneData\QuickStyleDef.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
