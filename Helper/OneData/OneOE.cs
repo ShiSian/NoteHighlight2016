@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace Helper.OneData
 {
-    public class OneTitle
+    public class OneOE
     {
-        // 构造函数
-        public OneTitle()
-        {
-
-        }
 
     }
 }

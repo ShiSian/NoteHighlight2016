@@ -160,18 +160,27 @@ namespace NoteHighlightAddin
             if(!string.IsNullOrEmpty(PageContent))
             {
 
+                string FilePath = @"D:\PageContent.xml";
+                XDocument Doc = XDocument.Parse(PageContent);
+                Doc.Save(FilePath);
+
+
+                //File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
+                MessageBox.Show("Succeed save xml file.");
+            }
+            else
+            {
+                MessageBox.Show("Failed to save file.");
             }
 
-            string FilePath = @"D:\PageContent.txt";
-            File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
 
-            MessageBox.Show("Succeed save file.");
         }
 
 
 
         #endregion
 
+        // 获取当前激活页面的内容
         [CLSCompliant(false)]
         public OnePage GetCurrentPage()
         {
