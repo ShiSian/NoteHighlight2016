@@ -11,28 +11,20 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            string xmlString = @"
-            <one:PageSettings RTL="false" color="automatic">
-    < one:PageSize >
- 
-       < one:Automatic />
-  
-      </ one:PageSize >
-   
-       < one:RuleLines visible = "false" />
-    
-      </ one:PageSettings >
-                 ";
+            // 读取本地的Xml文件
+            XDocument XmlDoc = new XDocument();
+            string XmlFilePath = @"D:\PageContent.xml";
+            XmlDoc = XDocument.Load(XmlFilePath);
 
-            XElement rootElement = XElement.Parse(xmlString);
+            var Title = XmlDoc.Descendants("Title");
+            if (Title != null)
+            {
+                //string Tmp = Title.element
+            }
 
-            // 1. 获取子元素的值
-            string childValue = rootElement.Element("ChildElement").Value;
-            Console.WriteLine($"ChildElement Value: {childValue}");
+            Console.WriteLine(Title.ToString());
 
-            // 2. 获取属性的值
-            string attributeValue = rootElement.Element("AnotherChild").Attribute("attributeKey").Value;
-            Console.WriteLine($"Attribute Value: {attributeValue}");
+
 
             Console.ReadLine();
         }

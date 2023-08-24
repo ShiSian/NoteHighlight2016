@@ -148,6 +148,14 @@ namespace NoteHighlightAddin
             }
             return null;
         }
+        #endregion
+
+        // 获取当前激活页面的内容
+        [CLSCompliant(false)]
+        public OnePage GetCurrentPage()
+        {
+            return null;
+        }
 
         // 测试函数
         [CLSCompliant(false)]
@@ -157,7 +165,7 @@ namespace NoteHighlightAddin
             string PageContent;
             OneNoteApplication.GetPageContent(CurrentPageID, out PageContent);
 
-            if(!string.IsNullOrEmpty(PageContent))
+            if (!string.IsNullOrEmpty(PageContent))
             {
 
                 string FilePath = @"D:\PageContent.xml";
@@ -172,21 +180,7 @@ namespace NoteHighlightAddin
             {
                 MessageBox.Show("Failed to save file.");
             }
-
-
         }
-
-
-
-        #endregion
-
-        // 获取当前激活页面的内容
-        [CLSCompliant(false)]
-        public OnePage GetCurrentPage()
-        {
-            return null;
-        }
-
 
 
         public AddIn()
