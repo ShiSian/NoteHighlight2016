@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--【XML声明】(可选)：它定义 XML 的版本（1.0）和所使用的编码（UTF-8 : 万国码, 可显示各种语言）-->
+
+<!--【XML根元素】(必选)-->
+<bookstore>
+	<!--【XML元素】book是bookstore的元素，属性值必须加双引号-->
+	<book category="COOKING">
+		<title lang="en">Everyday Italian</title>
+		<author>Giada De Laurentiis</author>
+		<year>2005</year>
+		<price>30.00</price>
+	</book>
+	
+	<!--【XML属性】category是一个属性，属性值必须加双引号（尽量避免使用属性，不支持树结构、多个值、扩展）-->
+	<book category="CHILDREN">
+		<title lang="en">Harry Potter</title>
+		<author>J K. Rowling</author>
+		<year>2005</year>
+		<price>29.99</price>
+	</book>
+
+	<!--【XML命名空间】f是一个命名空间，通过xmlns:f属性对该命名空间进行了说明-->
+	<f:table xmlns:f="http://www.w3cschool.cc/furniture">
+		<f:name>African Coffee Table</f:name>
+		<f:width>80</f:width>
+		<f:length>120</f:length>
+	</f:table>
+
+	<!--【默认的命名空间】-->
+	<table xmlns="http://www.w3schools.com/furniture">
+		<name>African Coffee Table</name>
+		<width>80</width>
+		<length>120</length>
+	</table>
+	
+</bookstore>
+
+<!--
+// 注意事项
+1、XML中有些关键字被占用，所以需要使用其他的字符替换，主要有以下几个：
+	&lt;	| <	| less than
+	&gt;	| >	| greater than
+	&amp;	| &	| ampersand
+	&apos;	| '	| apostrophe
+	&quot;	| "	| quotation mark
+2、在 XML 中，文档中的空格不会被删减。
+-->
+
