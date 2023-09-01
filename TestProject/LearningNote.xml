@@ -33,6 +33,9 @@
 		<length>120</length>
 	</table>
 	
+	<![CDATA[  CDATA内部的数据不会被解析，所以可以在这里输入XML的关键字，如<  ]]>
+
+	
 </bookstore>
 
 <!--
