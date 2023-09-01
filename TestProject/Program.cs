@@ -63,7 +63,31 @@ namespace TestProject
             //2,先获取根节点
             XElement rootElement = document.Root;
             //3.将xml的根元素加载到Treeview的根节点上
-            TreeNode rootNode = treeview1.Nodes.Add(rootElement.Name.Tostring())
+            TreeView treeview1 = new TreeView();
+            TreeNode rootNode = treeview1.Nodes.Add(rootElement.Name.ToString());
+            //4.递归加载
+            LoadXmlRecur(rootElement, rootNode.Nodes);
+
+        }
+
+        private void LoadXmlRecur(XElement rootElement, TreeNodeCollection treeNodeCollection)
+        {
+            //获取根元素rootElement下的所有的子元素
+            //rootElement.Elements ()
+            //遍历rootElement下的所有的子元素（直接子元素）】
+            foreach (XElement item in rootElement.Elements())
+            {
+                if (item.Elements().Count() == 0)
+                {
+                    treeNodeCollection.Add(item.Value);
+                }
+                else
+                {
+                    //将当前子元素加载到Treeview的节点集合中
+                    TreeNode node =  treeNodeCollection.Add(item.Name.ToString());
+                    LoadXmlRecur(item, node.Nodes);
+                }
+            }
         }
     }
 }
