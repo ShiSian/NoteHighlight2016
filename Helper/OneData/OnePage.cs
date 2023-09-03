@@ -9,6 +9,8 @@ namespace Helper.OneData
 {
     public class OnePage
     {
+        // 属性
+        public static XNamespace ns;
         private string id;
         private string name;
         private string dateTime;
@@ -16,61 +18,36 @@ namespace Helper.OneData
         private string pageLevel;
         private string isCurrentlyViewed;
         private string lang;
-        private List<QuickStyleDef> quickStyleDefs;
 
-        public OnePage()
-        {
-
-        }
-        public OnePage(XDocument document)
-        {
-
-        }
+        // 标签部分
+        private List<OneTagDef> oneTagDefs;
+        private List<OneQuickStyleDef> oneQuickStyleDefs;
+        private OnePageSettings onePageSettings;
+        private OneTitle oneTitle;
 
 
+        public OnePage(XDocument XDoc)
+        {
+            // 获取根组件
+            XElement RootElem = XDoc.Root;
+            ns = RootElem.Name.Namespace;
 
-        public string ID
-        {
-            get { return id; }
-            set { }
+            // 初始化TagDefs
+            foreach (XElement Elem in RootElem.Elements(ns + "TagDef"))
+            {
+                OneTagDef TmpTagDef = new OneTagDef(Elem);
+                oneTagDefs.Add(TmpTagDef);
+            }
+            // 初始化QuickStyleDefs
+            foreach (XElement Elem in RootElem.Elements(ns + "QuickStyleDef"))
+            {
+                OneQuickStyleDef TmpQuickStyleDef = new OneQuickStyleDef(Elem);
+                oneQuickStyleDefs.Add(TmpQuickStyleDef);
+            }
+            // 初始化PageSettings
+            onePageSettings = new OnePageSettings(RootElem.Element(ns + "PageSettings"));
+            // 初始化Title
+            oneTitle = new OneTitle();
         }
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        public string DateTime
-        {
-            get { return dateTime; }
-            set { dateTime = value; }
-        }
-        public string LastModifiedTime
-        {
-            get { return lastModifiedTime; }
-            set { lastModifiedTime = value; }
-        }
-        public string PageLevel
-        {
-            get { return pageLevel; }
-            set { pageLevel = value; }
-        }
-        public string IsCurrentlyViewed
-        {
-            get { return isCurrentlyViewed; }
-            set { isCurrentlyViewed = value; }
-        }
-        public string Lang
-        {
-            get { return lang; }
-            set { lang = value; }
-        }
-        public List<QuickStyleDef> QuickStyleDefs
-        {
-            get { return quickStyleDefs; }
-            set { quickStyleDefs = value; }
-        }
-
-
-
     }
 }

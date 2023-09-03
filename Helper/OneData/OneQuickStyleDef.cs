@@ -7,20 +7,36 @@ using System.Xml.Linq;
 
 namespace Helper.OneData
 {
-    public class QuickStyleDef
+    public class OneQuickStyleDef
     {
-        public QuickStyleDef()
+        // 属性
+        private string index;
+        private string name;
+        private string fontColor;
+        private string highlightColor;
+        private string font;
+        private string fontSize;
+        private string spaceBefore;
+        private string spaceAfter;
+
+
+        public OneQuickStyleDef()
         {
 
         }
-        public QuickStyleDef(XElement Elem)
+
+        public OneQuickStyleDef(XElement XElem)
         {
             //index = Elem.desa
+            index = XElem.Attribute("index").Value;
+            name = XElem.Attribute("name").Value;
+            fontColor = XElem.Attribute("fontColor").Value;
+            highlightColor = XElem.Attribute("highlightColor").Value;
+            font = XElem.Attribute("font").Value;
+            fontSize = XElem.Attribute("fontSize").Value;
+            spaceBefore = XElem.Attribute("spaceBefore").Value;
+            spaceAfter = XElem.Attribute("spaceAfter").Value;
         }
-
-
-        private string index;
-
 
         public string Index
         {
@@ -28,21 +44,17 @@ namespace Helper.OneData
             set { index = value; }
         }
 
-        private string name;
-
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
-        private string fontColor;
 
         public string FontColor
         {
             get { return fontColor; }
             set { fontColor = value; }
         }
-        private string highlightColor;
 
         public string HighlightColor
         {
@@ -50,15 +62,11 @@ namespace Helper.OneData
             set { highlightColor = value; }
         }
 
-        private string font;
-
         public string Font
         {
             get { return font; }
             set { font = value; }
         }
-
-        private string fontSize;
 
         public string FontSize
         {
@@ -66,15 +74,11 @@ namespace Helper.OneData
             set { fontSize = value; }
         }
 
-        private string spaceBefore;
-
         public string SpaceBefore
         {
             get { return spaceBefore; }
             set { spaceBefore = value; }
         }
-
-        private string spaceAfter;
 
         public string SpaceAfter
         {

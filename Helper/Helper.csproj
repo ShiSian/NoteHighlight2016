@@ -47,11 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OneData\OneAutomatic.cs" />
     <Compile Include="OneData\OneOE.cs" />
+    <Compile Include="OneData\OneOutline.cs" />
     <Compile Include="OneData\OnePage.cs" />
-    <Compile Include="OneData\OneT.cs" />
+    <Compile Include="OneData\OnePageSettings.cs" />
+    <Compile Include="OneData\OnePageSize.cs" />
+    <Compile Include="OneData\OnePosition.cs" />
+    <Compile Include="OneData\OneSize.cs" />
+    <Compile Include="OneData\OneItem.cs" />
+    <Compile Include="OneData\OneTable.cs" />
+    <Compile Include="OneData\OneTagDef.cs" />
     <Compile Include="OneData\OneTitle.cs" />
-    <Compile Include="OneData\QuickStyleDef.cs" />
+    <Compile Include="OneData\OneQuickStyleDef.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtension.cs" />

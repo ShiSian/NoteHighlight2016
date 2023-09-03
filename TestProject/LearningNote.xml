@@ -10,6 +10,9 @@
 		<year>2005</year>
 		<price>30.00</price>
 	</book>
+
+	<!--【XML元素】自闭合类型，表示该元素只有属性没有子元素-->
+	<book category="COOKING"/>
 	
 	<!--【XML属性】category是一个属性，属性值必须加双引号（尽量避免使用属性，不支持树结构、多个值、扩展）-->
 	<book category="CHILDREN">
