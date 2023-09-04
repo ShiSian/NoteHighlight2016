@@ -7,6 +7,32 @@ using System.Xml.Linq;
 
 namespace Helper.OneData
 {
+    class OnePosition
+    {
+        private string x;
+        private string y;
+        private string z;
+
+        public OnePosition(XElement XElem)
+        {
+            x = XElem.Attribute("x").Value;
+            y = XElem.Attribute("y").Value;
+            z = XElem.Attribute("z").Value;
+        }
+    }
+
+    class OneSize
+    {
+        private string width;
+        private string height;
+
+        public OneSize(XElement XElem)
+        {
+            width = XElem.Attribute("width").Value;
+            height = XElem.Attribute("height").Value;
+        }
+    }
+
     class OneOutline
     {
         // 属性

@@ -48,13 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OneData\OneAutomatic.cs" />
-    <Compile Include="OneData\OneOE.cs" />
     <Compile Include="OneData\OneOutline.cs" />
     <Compile Include="OneData\OnePage.cs" />
     <Compile Include="OneData\OnePageSettings.cs" />
     <Compile Include="OneData\OnePageSize.cs" />
-    <Compile Include="OneData\OnePosition.cs" />
-    <Compile Include="OneData\OneSize.cs" />
     <Compile Include="OneData\OneItem.cs" />
     <Compile Include="OneData\OneTable.cs" />
     <Compile Include="OneData\OneTagDef.cs" />

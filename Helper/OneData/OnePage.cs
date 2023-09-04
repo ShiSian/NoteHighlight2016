@@ -46,8 +46,11 @@ namespace Helper.OneData
             }
             // 初始化PageSettings
             onePageSettings = new OnePageSettings(RootElem.Element(ns + "PageSettings"));
+            
             // 初始化Title
-            oneTitle = new OneTitle();
+            oneTitle = new OneTitle(RootElem.Element(ns + "Title"));
+
+            // 初始化Outline
         }
     }
 }
