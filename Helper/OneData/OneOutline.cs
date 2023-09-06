@@ -25,11 +25,13 @@ namespace Helper.OneData
     {
         private string width;
         private string height;
+        private string isSetByUser;
 
         public OneSize(XElement XElem)
         {
             width = XElem.Attribute("width").Value;
             height = XElem.Attribute("height").Value;
+            isSetByUser = XElem.Attribute("isSetByUser").Value;
         }
     }
 
@@ -57,9 +59,9 @@ namespace Helper.OneData
             lastModifiedTime = XElem.Attribute("lastModifiedTime").Value;
             objectID = XElem.Attribute("objectID").Value;
 
-            onePosition = new OnePosition(XElem.Element(OnePage.ns + "Position"));
-            oneSize = new OneSize(XElem.Element(OnePage.ns + "Size"));
-            oneOEChildren = new OneOEChildren(XElem.Element(OnePage.ns + "OEChildren"));
+            onePosition = new OnePosition(XElem.Element(OneDataHelper.OneSpace + "Position"));
+            oneSize = new OneSize(XElem.Element(OneDataHelper.OneSpace + "Size"));
+            oneOEChildren = new OneOEChildren(XElem.Element(OneDataHelper.OneSpace + "OEChildren"));
         }
     }
 }

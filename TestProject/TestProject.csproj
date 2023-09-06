@@ -53,5 +53,11 @@
   <ItemGroup>
     <Content Include="LearningNote.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Helper\Helper.csproj">
+      <Project>{391303F3-B2F5-45DC-9D0D-F4D6D3A76A5D}</Project>
+      <Name>Helper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

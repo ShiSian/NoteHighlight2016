@@ -27,7 +27,7 @@ namespace Helper.OneData
 
         public OneColumns(XElement XElem)
         {
-            foreach (XElement item in XElem.Elements(OnePage.ns + "Column"))
+            foreach (XElement item in XElem.Elements(OneDataHelper.OneSpace + "Column"))
             {
                 OneColumn TmpOneColumn = new OneColumn(item);
                 oneColumns.Add(TmpOneColumn);
@@ -50,7 +50,7 @@ namespace Helper.OneData
             objectID = XElem.Attribute("objectID").Value;
             lastModifiedByInitials = XElem.Attribute("lastModifiedByInitials").Value;
 
-            oneOEChildren = new OneOEChildren(XElem.Element(OnePage.ns + ""));
+            oneOEChildren = new OneOEChildren(XElem.Element(OneDataHelper.OneSpace + "OEChildren"));
         }
     }
 
@@ -58,22 +58,28 @@ namespace Helper.OneData
     {
         private string objectID;
         private string lastModifiedTime;
+        private List<OneCell> oneCells;
 
         public OneRow(XElement XElem)
         {
             objectID = XElem.Attribute("objectID").Value;
             lastModifiedTime = XElem.Attribute("lastModifiedTime").Value;
+            foreach (XElement item in XElem.Elements( OneDataHelper.OneSpace + "Cell"))
+            {
+                oneCells.Add(new OneCell(item));
+            }
 
         }
     }
 
-    class OneTable
+    class OneTable : OneItem
     {
         private string bordersVisible;
         private string hasHeaderRow;
         private string lastModifiedTime;
         private string objectID;
-        private OneColumn oneColumn;
+        private OneColumns oneColumns;
+        private List<OneRow> oneRows;
 
 
 
@@ -84,14 +90,16 @@ namespace Helper.OneData
             lastModifiedTime = XElem.Attribute("lastModifiedTime").Value;
             objectID = XElem.Attribute("objectID").Value;
 
-            oneColumn = new OneColumn(XElem.Element(OnePage.ns + "Columns"));
-            foreach (XElement item in XElem.Elements(OnePage.ns + "Row"))
+            oneColumns = new OneColumns(XElem.Element(OneDataHelper.OneSpace + "Columns"));
+            foreach (XElement item in XElem.Elements(OneDataHelper.OneSpace + "Row"))
             {
-
+                oneRows.Add(new OneRow(XElem));
             }
-
         }
 
-
+        public override string GetStringData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
