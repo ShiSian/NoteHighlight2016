@@ -54,9 +54,17 @@
     <Content Include="LearningNote.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GenerateHighlightContent\GenerateHighlightContent.csproj">
+      <Project>{04f98cff-6895-4b84-ac32-23ab8684ea43}</Project>
+      <Name>GenerateHighlightContent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Helper\Helper.csproj">
       <Project>{391303F3-B2F5-45DC-9D0D-F4D6D3A76A5D}</Project>
       <Name>Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NoteHighlightAddin\NoteHighlightAddin.csproj">
+      <Project>{d874e185-08fe-48c5-bade-0fe84060c978}</Project>
+      <Name>NoteHighlightAddin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

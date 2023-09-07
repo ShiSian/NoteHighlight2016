@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Helper.OneData
+namespace Helper
 {
     class OneColumn
     {
@@ -17,13 +17,16 @@ namespace Helper.OneData
         {
             index = XElem.Attribute("index").Value;
             width = XElem.Attribute("width").Value;
-            isLocked = XElem.Attribute("isLocked").Value;
+            if (XElem.Attribute("isLocked") != null)
+            {
+                isLocked = XElem.Attribute("isLocked").Value;
+            }
         }
     }
 
     class OneColumns
     {
-        private List<OneColumn> oneColumns;
+        private List<OneColumn> oneColumns = new List<OneColumn>();
 
         public OneColumns(XElement XElem)
         {
@@ -58,7 +61,7 @@ namespace Helper.OneData
     {
         private string objectID;
         private string lastModifiedTime;
-        private List<OneCell> oneCells;
+        private List<OneCell> oneCells = new List<OneCell>();
 
         public OneRow(XElement XElem)
         {
@@ -79,7 +82,7 @@ namespace Helper.OneData
         private string lastModifiedTime;
         private string objectID;
         private OneColumns oneColumns;
-        private List<OneRow> oneRows;
+        private List<OneRow> oneRows = new List<OneRow>();
 
 
 

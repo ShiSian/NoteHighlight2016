@@ -1,4 +1,4 @@
-﻿using Helper.OneData;
+﻿using Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace TestProject
             string XmlFilePath = @"D:\PageContent.xml";
             XmlDoc = XDocument.Load(XmlFilePath);
 
-            //OnePage TmpOnePage = new OnePage(XmlDoc);
+            OnePage TmpOnePage = new OnePage(XmlDoc);
 
             Console.WriteLine("======");
 

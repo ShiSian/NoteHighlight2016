@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Helper.OneData
+namespace Helper
 {
     public abstract class OneItem
     {
@@ -19,7 +19,10 @@ namespace Helper.OneData
 
         public OneT(XElement XmlElement)
         {
-            style = XmlElement.Attribute("style").Value;
+            if (XmlElement.Attribute("style") != null)
+            {
+                style = XmlElement.Attribute("style").Value;
+            }
             value = XmlElement.Value;
         }
 
@@ -41,13 +44,27 @@ namespace Helper.OneData
 
         public OneNumber(XElement XElem)
         {
-            numberSequence = XElem.Attribute("numberSequence").Value;
-            numberFormat = XElem.Attribute("numberFormat").Value;
-            fontSize = XElem.Attribute("fontSize").Value;
-            font = XElem.Attribute("font").Value;
-            bold = XElem.Attribute("bold").Value;
-            language = XElem.Attribute("language").Value;
-            text = XElem.Attribute("text").Value;
+            if (XElem != null)
+            {
+                if (XElem.Attribute("numberSequence") != null)
+                {
+                    numberSequence = XElem.Attribute("numberSequence").Value;
+
+                }
+                numberFormat = XElem.Attribute("numberFormat").Value;
+                fontSize = XElem.Attribute("fontSize").Value;
+                if (XElem.Attribute("font") != null)
+                {
+                    font = XElem.Attribute("font").Value;
+
+                }
+                if (XElem.Attribute("bold") != null)
+                {
+                    bold = XElem.Attribute("bold").Value;
+                }
+                language = XElem.Attribute("language").Value;
+                text = XElem.Attribute("text").Value;
+            }
         }
 
         public override string GetStringData()
@@ -90,24 +107,52 @@ namespace Helper.OneData
         private string spaceBetween;
 
         // 元素部分（灵活变化部分）
-        private List<OneItem> oneItems;
+        private List<OneItem> oneItems = new List<OneItem>();
 
         public OneOE(XElement XElem)
         {
-            author = XElem.Attribute(OneDataHelper.OneSpace + "author").Value;
-            authorInitials = XElem.Attribute(OneDataHelper.OneSpace + "authorInitials").Value;
-            authorResolutionID = XElem.Attribute(OneDataHelper.OneSpace + "authorResolutionID").Value;
-            lastModifiedBy = XElem.Attribute(OneDataHelper.OneSpace + "lastModifiedBy").Value;
-            lastModifiedByInitials = XElem.Attribute(OneDataHelper.OneSpace + "lastModifiedByInitials").Value;
-            lastModifiedByResolutionID = XElem.Attribute(OneDataHelper.OneSpace + "lastModifiedByResolutionID").Value;
-            creationTime = XElem.Attribute(OneDataHelper.OneSpace + "creationTime").Value;
-            lastModifiedTime = XElem.Attribute(OneDataHelper.OneSpace + "lastModifiedTime").Value;
-            objectID = XElem.Attribute(OneDataHelper.OneSpace + "objectID").Value;
-            alignment = XElem.Attribute(OneDataHelper.OneSpace + "alignment").Value;
-            quickStyleIndex = XElem.Attribute(OneDataHelper.OneSpace + "quickStyleIndex").Value;
-            spaceBefore = XElem.Attribute(OneDataHelper.OneSpace + "spaceBefore").Value;
-            spaceAfter = XElem.Attribute(OneDataHelper.OneSpace + "spaceAfter").Value;
-            spaceBetween = XElem.Attribute(OneDataHelper.OneSpace + "spaceBetween").Value;
+            if (XElem.Attribute("author") != null)
+            {
+                author = XElem.Attribute("author").Value;
+            }
+            if (XElem.Attribute("authorInitials") != null)
+            {
+                authorInitials = XElem.Attribute("authorInitials").Value;
+
+            }
+            if (XElem.Attribute("authorResolutionID") != null)
+            {
+                authorResolutionID = XElem.Attribute("authorResolutionID").Value;
+            }
+            if (XElem.Attribute("lastModifiedBy") != null)
+            {
+                lastModifiedBy = XElem.Attribute("lastModifiedBy").Value;
+            }
+            if (XElem.Attribute("lastModifiedByInitials") != null)
+            {
+                lastModifiedByInitials = XElem.Attribute("lastModifiedByInitials").Value;
+            }
+            lastModifiedByResolutionID = XElem.Attribute("lastModifiedByResolutionID").Value;
+            creationTime = XElem.Attribute("creationTime").Value;
+            lastModifiedTime = XElem.Attribute("lastModifiedTime").Value;
+            objectID = XElem.Attribute("objectID").Value;
+            alignment = XElem.Attribute("alignment").Value;
+            if (XElem.Attribute("quickStyleIndex") != null)
+            {
+                quickStyleIndex = XElem.Attribute("quickStyleIndex").Value;
+            }
+            if (XElem.Attribute("spaceBefore") != null)
+            {
+                spaceBefore = XElem.Attribute("spaceBefore").Value;
+            }
+            if (XElem.Attribute("spaceAfter") != null)
+            {
+                spaceAfter = XElem.Attribute("spaceAfter").Value;
+            }
+            if (XElem.Attribute("spaceBetween") != null)
+            {
+                spaceBetween = XElem.Attribute("spaceBetween").Value;
+            }
 
 
             foreach (XElement item in XElem.Elements())
@@ -124,7 +169,7 @@ namespace Helper.OneData
 
     class OneOEChildren : OneItem
     {
-        List<OneOE> oneOEs;
+        List<OneOE> oneOEs = new List<OneOE>();
 
         public OneOEChildren(XElement XElem)
         {
@@ -147,7 +192,7 @@ namespace Helper.OneData
 
         public OneCallbackID(XElement XElem)
         {
-            callbackID = XElem.Attribute(OneDataHelper.OneSpace + "CallbackID").Value;
+            callbackID = XElem.Attribute("callbackID").Value;
         }
     }
 
@@ -179,7 +224,11 @@ namespace Helper.OneData
             line = XElem.Attribute("line").Value;
             x = XElem.Attribute("x").Value;
             y = XElem.Attribute("y").Value;
-            z = XElem.Attribute("z").Value;
+            if (XElem.Attribute("z") != null)
+            {
+                z = XElem.Attribute("z").Value;
+
+            }
             width = XElem.Attribute("width").Value;
             height = XElem.Attribute("height").Value;
         }
@@ -190,7 +239,7 @@ namespace Helper.OneData
         private string lang;
 
         private OneOCRText oneOCRText;
-        private List<OneOCRToken> oneOCRTokens;
+        private List<OneOCRToken> oneOCRTokens = new List<OneOCRToken>();
 
         public OneOCRData(XElement XElem)
         {

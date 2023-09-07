@@ -28,7 +28,6 @@ using System.Web;
 using GenerateHighlightContent;
 using System.Configuration;
 using System.Globalization;
-using Helper.OneData;
 
 #pragma warning disable CS3003 // Type is not CLS-compliant
 

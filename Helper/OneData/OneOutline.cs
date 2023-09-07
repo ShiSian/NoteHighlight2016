@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Helper.OneData
+namespace Helper
 {
     class OnePosition
     {
@@ -31,7 +31,10 @@ namespace Helper.OneData
         {
             width = XElem.Attribute("width").Value;
             height = XElem.Attribute("height").Value;
-            isSetByUser = XElem.Attribute("isSetByUser").Value;
+            if (XElem.Attribute("isSetByUser") != null)
+            {
+                isSetByUser = XElem.Attribute("isSetByUser").Value;
+            }
         }
     }
 

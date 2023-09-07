@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Helper.OneData
+namespace Helper
 {
     public class OneRuleLines
     {
@@ -55,20 +55,21 @@ namespace Helper.OneData
         private string lang;
 
         // 标签部分
-        private List<OneTagDef> oneTagDefs;
-        private List<OneQuickStyleDef> oneQuickStyleDefs;
+        private List<OneTagDef> oneTagDefs = new List<OneTagDef>();
+        private List<OneQuickStyleDef> oneQuickStyleDefs = new List<OneQuickStyleDef>();
         private OnePageSettings onePageSettings;
         private OneTitle oneTitle;
-        private List<OneOutline> oneOutlines;
+        private List<OneOutline> oneOutlines = new List<OneOutline>();
 
         // 其他字段
         public OneDataHelper oneDataHelper;
 
-
+        //public OnePage() { }
         public OnePage(XDocument XDoc)
         {
             // 获取根组件
             XElement RootElem = XDoc.Root;
+            Console.WriteLine("New OnePage");
 
             // 元素公用类
             oneDataHelper = new OneDataHelper();
