@@ -1,9 +1,9 @@
 ﻿using Helper;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -13,19 +13,104 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
+            TestOnePage();
+            //TestFunc();
+
+
+            Console.ReadKey();
+        }
+
+
+
+
+        static void TestOnePage()
+        {
             // 读取本地的Xml文件
             XDocument XmlDoc = new XDocument();
             string XmlFilePath = @"D:\PageContent.xml";
             XmlDoc = XDocument.Load(XmlFilePath);
 
             OnePage TmpOnePage = new OnePage(XmlDoc);
+            string PageContent = TmpOnePage.ToCSV();
+            Console.WriteLine(PageContent);
 
-            Console.WriteLine("======");
+            string FilePath = @"D:\PageContent.csv";
+            File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
 
 
-
-            Console.ReadLine();
         }
+
+        static void TestFunc()
+        {
+            string Input = "第一行T第二行TT第三行TT第三行";
+            string Pattern = "(T)+";
+            string Replacement = @"$1--";
+
+            Input =  Regex.Replace(Input, Pattern, Replacement, RegexOptions.Multiline);
+            Console.WriteLine(Input);
+        }
+
+        public string ReplaceCC(Match m)
+        // Replace each Regex cc match with the number of the occurrence.
+        {
+            return m.ToString() + "==";
+        }
+
+
+        public static string TransformString(string input)
+        {
+            string pattern = @"T+";
+
+            Regex r = new Regex(pattern);
+            Program p = new Program();
+            MatchEvaluator myEvaluator = new MatchEvaluator(p.ReplaceCC);
+            input = r.Replace(input, myEvaluator);
+
+
+            // Use a regular expression to find and replace instances of "T" followed by one or more "T" characters
+            //string replacement = "TT";
+            //string result = Regex.Replace(input, pattern, replacement);
+
+            //Regex regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            //if (regex.IsMatch(input))
+            //{
+            //    MatchCollection matchCollection = regex.Matches(input);
+            //    foreach (Match match in matchCollection)
+            //    {
+            //        Console.WriteLine(match.ToString());
+            //        input.Replace(match.ToString(), match.ToString() + "T");
+            //    }
+            //}
+            Console.WriteLine(input);
+
+
+            return "";
+        }
+
+
+
+
+
+
+        void TestFunction()
+        {
+            // 读取本地的Xml文件
+            XDocument XmlDoc = new XDocument();
+            string XmlFilePath = @"D:\PageContent.xml";
+            XmlDoc = XDocument.Load(XmlFilePath);
+
+            OnePage TmpOnePage = new OnePage(XmlDoc);
+            string TmpStr = TmpOnePage.ToCSV();
+
+            //string TestStr = "Hello";
+            //TestStr += Environment.NewLine;
+            //TestStr += "World";
+
+            Console.WriteLine(TmpStr);
+            Console.ReadKey();
+        }
+
+
 
         void WriteXML()
         {

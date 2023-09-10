@@ -27,24 +27,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1C4A1874F0BF7D03907112942D12293F"
-        "OwnerKey" = "8:_4626A69156C041A6A17AD4734F0B0306"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1C4A1874F0BF7D03907112942D12293F"
-        "OwnerKey" = "8:_7CBDA023CD2F435BB8D4D5586B86D83B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1C4A1874F0BF7D03907112942D12293F"
-        "OwnerKey" = "8:_692D7E391D074D36AD2530720FB8D6C4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_4626A69156C041A6A17AD4734F0B0306"
         "OwnerKey" = "8:_692D7E391D074D36AD2530720FB8D6C4"
         "MsmSig" = "8:_UNDEFINED"
@@ -53,6 +35,24 @@
         {
         "MsmKey" = "8:_47AFBE13144648689D856D43F6F054E6"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_50AB3E5AE5E3DFBD187B8018CF056A8A"
+        "OwnerKey" = "8:_4626A69156C041A6A17AD4734F0B0306"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_50AB3E5AE5E3DFBD187B8018CF056A8A"
+        "OwnerKey" = "8:_7CBDA023CD2F435BB8D4D5586B86D83B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_50AB3E5AE5E3DFBD187B8018CF056A8A"
+        "OwnerKey" = "8:_692D7E391D074D36AD2530720FB8D6C4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -148,7 +148,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1C4A1874F0BF7D03907112942D12293F"
+        "OwnerKey" = "8:_50AB3E5AE5E3DFBD187B8018CF056A8A"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -318,37 +318,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1C4A1874F0BF7D03907112942D12293F"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Helper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=609b64b0cf912098, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_1C4A1874F0BF7D03907112942D12293F"
-                    {
-                    "Name" = "8:Helper.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Helper.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_76DE0C3E4C3C41398EBF2960C9F81C36"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4626A69156C041A6A17AD4734F0B0306"
             {
             "AssemblyRegister" = "3:1"
@@ -398,6 +367,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_50AB3E5AE5E3DFBD187B8018CF056A8A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:HelperCustom, Version=1.0.0.0, Culture=neutral, PublicKeyToken=609b64b0cf912098, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_50AB3E5AE5E3DFBD187B8018CF056A8A"
+                    {
+                    "Name" = "8:HelperCustom.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:HelperCustom.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_76DE0C3E4C3C41398EBF2960C9F81C36"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AE2389360AA9827EF0E80F1CA3A3292C"
@@ -646,9 +646,9 @@
         {
         "Name" = "8:NoteHighlightAddin"
         "ProductName" = "8:OneGarage"
-        "ProductCode" = "8:{4AC8023A-D4FC-407A-8093-D04607836981}"
+        "ProductCode" = "8:{F8729290-E557-4269-AC7F-3B97B395A7F9}"
         "PackageCode" = "8:{C9A77563-DA85-4922-9C48-31CDAE59C61F}"
-        "UpgradeCode" = "8:{57225BA2-7C66-47B3-9CF1-1965F03BE86F}"
+        "UpgradeCode" = "8:{A692BCAF-96AC-4549-8637-0253483F3E5D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -1634,7 +1634,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_692D7E391D074D36AD2530720FB8D6C4"
             {
-            "SourcePath" = "8:..\\NoteHighlightAddin\\obj\\x64\\Debug\\NoteHighlightAddin.dll"
+            "SourcePath" = "8:..\\NoteHighlightAddin\\obj\\Release\\NoteHighlightAddin.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_76DE0C3E4C3C41398EBF2960C9F81C36"
@@ -1662,7 +1662,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7CBDA023CD2F435BB8D4D5586B86D83B"
             {
-            "SourcePath" = "8:..\\GenerateHighlightContent\\obj\\Debug\\GenerateHighlightContent.dll"
+            "SourcePath" = "8:..\\GenerateHighlightContent\\obj\\Release\\GenerateHighlightContent.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_39453C680207418990A5DB77816F0EE9"
@@ -1690,7 +1690,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CBF51C0C38434D629FC3271C5390E247"
             {
-            "SourcePath" = "8:..\\Helper\\obj\\Debug\\Helper.dll"
+            "SourcePath" = "8:"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_39453C680207418990A5DB77816F0EE9"

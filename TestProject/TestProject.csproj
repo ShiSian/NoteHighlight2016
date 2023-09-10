@@ -59,7 +59,7 @@
       <Name>GenerateHighlightContent</Name>
     </ProjectReference>
     <ProjectReference Include="..\Helper\Helper.csproj">
-      <Project>{391303F3-B2F5-45DC-9D0D-F4D6D3A76A5D}</Project>
+      <Project>{391303f3-b2f5-45dc-9d0d-f4d6d3a76a5d}</Project>
       <Name>Helper</Name>
     </ProjectReference>
     <ProjectReference Include="..\NoteHighlightAddin\NoteHighlightAddin.csproj">

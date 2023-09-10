@@ -1,39 +1,31 @@
-﻿/*
- *  Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
- */
-
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using Extensibility;
 using Microsoft.Office.Core;
 using NoteHighlightAddin.Utilities;
 using Application = Microsoft.Office.Interop.OneNote.Application;  // Conflicts with System.Windows.Forms
-//using Application233 = Microsoft.Office.Interop.OneNote. // Conflicts with System.Windows.Forms
 using System.Reflection;
 using System.Drawing;
 using Microsoft.Office.Interop.OneNote;
-using NoteHighLightForm;
 using System.Text;
 using System.Linq;
-using Helper;
 using System.Threading;
 using System.Web;
 using GenerateHighlightContent;
-using System.Configuration;
 using System.Globalization;
+using Helper;
 
 #pragma warning disable CS3003 // Type is not CLS-compliant
 
 namespace NoteHighlightAddin
 {
-	[ComVisible(true)]
+    [ComVisible(true)]
 	[Guid("4C6B0362-F139-417F-9661-3663C268B9E9"), ProgId("NoteHighlight2016.AddIn")]
 
 	public class AddIn : IDTExtensibility2, IRibbonExtensibility
@@ -129,6 +121,7 @@ namespace NoteHighlightAddin
             Window OneNoteActiveWindow = OneNoteWindows.CurrentWindow;
             return OneNoteActiveWindow.CurrentPageId;
         }
+
         // 获取鼠标位置
         private string[] GetMousePointPosition(string pageXml)
         {
@@ -167,10 +160,8 @@ namespace NoteHighlightAddin
             if (!string.IsNullOrEmpty(PageContent))
             {
 
-                string FilePath = @"D:\PageContent.xml";
-                XDocument Doc = XDocument.Parse(PageContent);
-                Doc.Save(FilePath);
-
+                string FilePath = @"D:\PageContent.csv";
+                OneDataHelper.SavePage2CSV(PageContent, FilePath);
 
                 //File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
                 MessageBox.Show("Succeed save xml file.");
@@ -317,15 +308,6 @@ namespace NoteHighlightAddin
         public IStream GetImage(string imageName)
 		{
 			MemoryStream imageStream = new MemoryStream();
-            //switch (imageName)
-            //{
-            //    case "CSharp.png":
-            //        Properties.Resources.CSharp.Save(imageStream, ImageFormat.Png);
-            //        break;
-            //    default:
-            //        Properties.Resources.Logo.Save(imageStream, ImageFormat.Png);
-            //        break;
-            //}
 
             BindingFlags flags = BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 

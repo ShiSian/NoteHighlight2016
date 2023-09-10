@@ -66,5 +66,10 @@ namespace Helper
             oneSize = new OneSize(XElem.Element(OneDataHelper.OneSpace + "Size"));
             oneOEChildren = new OneOEChildren(XElem.Element(OneDataHelper.OneSpace + "OEChildren"));
         }
+
+        public string ToCSV()
+        {
+            return oneOEChildren.ToCSV();
+        }
     }
 }

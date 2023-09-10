@@ -52,7 +52,6 @@
     <Compile Include="OneData\OneOutline.cs" />
     <Compile Include="OneData\OnePage.cs" />
     <Compile Include="OneData\OneItem.cs" />
-    <Compile Include="OneData\OneTable.cs" />
     <Compile Include="OneData\OneTagDef.cs" />
     <Compile Include="OneData\OneTitle.cs" />
     <Compile Include="OneData\OneQuickStyleDef.cs" />

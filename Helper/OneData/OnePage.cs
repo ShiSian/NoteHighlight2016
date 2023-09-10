@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -69,7 +70,6 @@ namespace Helper
         {
             // 获取根组件
             XElement RootElem = XDoc.Root;
-            Console.WriteLine("New OnePage");
 
             // 元素公用类
             oneDataHelper = new OneDataHelper();
@@ -108,6 +108,17 @@ namespace Helper
                 OneOutline TmpOneOutline = new OneOutline(Elem);
                 oneOutlines.Add(TmpOneOutline);
             }
+        }
+
+        public string ToCSV()
+        {
+            string OutStr = "";
+            foreach (OneOutline item in oneOutlines)
+            {
+                OutStr += item.ToCSV();
+            }
+            OutStr = OneDataHelper.SubStrIndent(OutStr);
+            return OneDataHelper.UpdateIndent(OutStr);
         }
     }
 }
