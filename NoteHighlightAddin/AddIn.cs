@@ -43,13 +43,9 @@ namespace NoteHighlightAddin
         {
             try
             {
-
                 var workingDirectory = Path.Combine(ProcessHelper.GetDirectoryFromPath(Assembly.GetCallingAssembly().Location), "ribbon.xml");
-
                 string file = File.ReadAllText(workingDirectory);
-
                 return file;
-
             }
             catch (Exception e)
             {
@@ -57,7 +53,6 @@ namespace NoteHighlightAddin
                 return "";
             }
         }
-
 
         /// <summary>
         /// 【IDTExtensibility2接口】
@@ -149,9 +144,34 @@ namespace NoteHighlightAddin
             return null;
         }
 
-        // 测试函数
+        // 导出XML
         [CLSCompliant(false)]
-        public void ShowTestInfo2(IRibbonControl control)
+        public void ExportXML(IRibbonControl control)
+        {
+            string CurrentPageID = GetActivedPageID();
+            string PageContent;
+            OneNoteApplication.GetPageContent(CurrentPageID, out PageContent);
+
+            if (!string.IsNullOrEmpty(PageContent))
+            {
+
+                string FilePath = @"D:\PageContent.xml";
+                OneDataHelper.SavePage2XML(PageContent, FilePath);
+
+                //OneDataHelper.SavePage2CSV(PageContent, FilePath);
+
+                //File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
+                MessageBox.Show("Succeed save xml file.");
+            }
+            else
+            {
+                MessageBox.Show("Failed to save xml file.");
+            }
+        }
+
+        // 导出CSV
+        [CLSCompliant(false)]
+        public void ExportCSV(IRibbonControl control)
         {
             string CurrentPageID = GetActivedPageID();
             string PageContent;
@@ -163,12 +183,13 @@ namespace NoteHighlightAddin
                 string FilePath = @"D:\PageContent.csv";
                 OneDataHelper.SavePage2CSV(PageContent, FilePath);
 
+                //OneDataHelper.SavePage2CSV(PageContent, FilePath);
                 //File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
-                MessageBox.Show("Succeed save xml file.");
+                MessageBox.Show("Succeed save csv file.");
             }
             else
             {
-                MessageBox.Show("Failed to save file.");
+                MessageBox.Show("Failed to save csv file.");
             }
         }
 

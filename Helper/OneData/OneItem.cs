@@ -554,6 +554,11 @@ namespace Helper
                 oneColumns.Add(TmpOneColumn);
             }
         }
+
+        public int Num()
+        {
+            return oneColumns.Count();
+        }
     }
 
     class OneCell : OneItem
@@ -688,6 +693,13 @@ namespace Helper
             OutStr = OutStr.TrimEnd(Environment.NewLine.ToCharArray());
 
             return OutStr;
+        }
+
+        public string ToHTML()
+        {
+
+
+            return "";
         }
     }
 }

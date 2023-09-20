@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
+
 namespace Helper
 {
     public class OneDataHelper
@@ -57,7 +58,22 @@ namespace Helper
                 OnePage TmpPage = new OnePage(Doc);
                 string OutCSV = TmpPage.ToCSV();
 
-                File.WriteAllText(InTargetFilePath, OutCSV, Encoding.UTF8);
+                using(StreamWriter TmpWriter = new StreamWriter(InTargetFilePath))
+                {
+                    TmpWriter.Write(OutCSV);
+                }
+
+                //File.WriteAllText(InTargetFilePath, OutCSV, Encoding.UTF8);
+            }
+        }
+
+        // 导出XML
+        public static void SavePage2XML(string InPageString, string InTargetFilePath)
+        {
+            XDocument Doc = XDocument.Parse(InPageString);
+            if (Doc != null)
+            {
+                Doc.Save(InTargetFilePath);
             }
         }
 

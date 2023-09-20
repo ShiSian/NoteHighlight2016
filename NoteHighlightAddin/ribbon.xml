@@ -48,10 +48,10 @@
                 </group>
 
 				<group id="Custom" label="Custom" >
-					<button id="btnShowTestInfo" label="ShowTestInfo" size="normal" screentip="ShowTestInfo" onAction="ShowTestInfo2" image="Other.png" visible="true"/>
+					<button id="btnExportXML" label="ExportXML" size="normal" screentip="ExportXML" onAction="ExportXML" image="ExportXML.png" visible="true"/>
+					<button id="btnExportCSV" label="ExportCSV" size="normal" screentip="ExportCSV" onAction="ExportCSV" image="ExportCSV.png" visible="true"/>
 				</group>				
             </tab>
         </tabs>
     </ribbon>
 </customUI>
-
