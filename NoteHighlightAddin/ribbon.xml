@@ -47,9 +47,10 @@
                     <button id="buttonSettings" label="Settings" size="normal" screentip="Advanced settings" onAction="SettingsButtonClicked" image="Other.png" visible="true"/>
                 </group>
 
-				<group id="Custom" label="Custom" >
-					<button id="btnExportXML" label="ExportXML" size="normal" screentip="ExportXML" onAction="ExportXML" image="ExportXML.png" visible="true"/>
-					<button id="btnExportCSV" label="ExportCSV" size="normal" screentip="ExportCSV" onAction="ExportCSV" image="ExportCSV.png" visible="true"/>
+				<group id="Exprot" label="Export" >
+					<button id="btnExportXML" label="ExportXML" size="large" screentip="ExportXML" onAction="ExportXML" image="ExportXML.png" visible="true"/>
+					<button id="btnExportCSV" label="ExportCSV" size="large" screentip="ExportCSV" onAction="ExportCSV" image="ExportCSV.png" visible="true"/>
+					<button id="btnExportHtml" label="ExportHtml" size="large" screentip="ExportHtml" onAction="ExportHtml" image="ExportHtml.png" visible="true"/>
 				</group>				
             </tab>
         </tabs>

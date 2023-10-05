@@ -60,15 +60,19 @@ namespace NoteHighlightAddin
         /// 这个接口提供了一组事件，允许开发者在 Add-in 的生命周期的不同阶段执行特定的操作，如加载、卸载、启动和关闭等。
         /// </summary>
         // OnConnection：当 Add-in 被加载到宿主应用程序中时触发。例如，当用户启动应用程序或手动加载 Add-in 时。
+        [CLSCompliant(false)]
         public void OnConnection(object Application, ext_ConnectMode ConnectMode, object AddInInst, ref Array custom)
         {
             OneNoteApplication = (Application)Application;
+            OneDataHelper.OneNoteApplication = OneNoteApplication;
         }
         // OnDisconnection:当 Add-in 从宿主应用程序中卸载时触发。这可以是用户手动卸载 Add-in，或是当应用程序关闭时。
         [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.GC.Collect")]
+        [CLSCompliant(false)]
         public void OnDisconnection(ext_DisconnectMode RemoveMode, ref Array custom)
         {
             OneNoteApplication = null;
+            OneDataHelper.OneNoteApplication = null;
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
@@ -182,9 +186,6 @@ namespace NoteHighlightAddin
 
                 string FilePath = @"D:\PageContent.csv";
                 OneDataHelper.SavePage2CSV(PageContent, FilePath);
-
-                //OneDataHelper.SavePage2CSV(PageContent, FilePath);
-                //File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
                 MessageBox.Show("Succeed save csv file.");
             }
             else
@@ -193,6 +194,29 @@ namespace NoteHighlightAddin
             }
         }
 
+        // 导出Html
+        [CLSCompliant(false)]
+        public void ExportHtml(IRibbonControl control)
+        {
+            //MessageBox.Show("Succeed save Html file.");
+
+            string CurrentPageID = GetActivedPageID();
+            string PageContent;
+            OneNoteApplication.GetPageContent(CurrentPageID, out PageContent);
+
+            if (!string.IsNullOrEmpty(PageContent))
+            {
+
+                string FilePath = @"D:\PageContent.html";
+                OneDataHelper.SavePage2Html(PageContent, FilePath);
+
+                MessageBox.Show("Succeed save Html file.");
+            }
+            else
+            {
+                MessageBox.Show("Failed to save Html file.");
+            }
+        }
 
         public AddIn()
 		{

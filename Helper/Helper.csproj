@@ -47,20 +47,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OneData\OneAutomatic.cs" />
+    <Compile Include="OneData\OneOthers.cs" />
+    <Compile Include="OneData\OneContainer.cs" />
     <Compile Include="OneData\OneDataHelper.cs" />
-    <Compile Include="OneData\OneOutline.cs" />
+    <Compile Include="OneData\OneImage.cs" />
     <Compile Include="OneData\OnePage.cs" />
     <Compile Include="OneData\OneItem.cs" />
-    <Compile Include="OneData\OneTagDef.cs" />
-    <Compile Include="OneData\OneTitle.cs" />
-    <Compile Include="OneData\OneQuickStyleDef.cs" />
+    <Compile Include="OneData\OneT.cs" />
+    <Compile Include="OneData\OneTable.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Helper.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.OneNote">
+      <Guid>{0EA692EE-BB50-4E3C-AEF0-356D91732725}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -158,6 +158,7 @@
     <Content Include="Resources\CSharp.png" />
     <Content Include="Resources\CSS.png" />
     <Content Include="Resources\ExportCSV.png" />
+    <Content Include="Resources\ExportHtml.png" />
     <Content Include="Resources\ExportXML.png" />
     <Content Include="Resources\HTML.png" />
     <Content Include="Resources\JAVA.png" />

@@ -30,14 +30,12 @@ namespace TestProject
             string XmlFilePath = @"D:\PageContent.xml";
             XmlDoc = XDocument.Load(XmlFilePath);
 
-            OnePage TmpOnePage = new OnePage(XmlDoc);
-            string PageContent = TmpOnePage.ToCSV();
-            Console.WriteLine(PageContent);
-
-            string FilePath = @"D:\PageContent.csv";
-            File.WriteAllText(FilePath, PageContent, Encoding.UTF8);
-
-
+            if (XmlDoc != null)
+            {
+                string PageContent = XmlDoc.ToString();
+                OneDataHelper.SavePage2Html(PageContent, @"D:\PageContent.html");
+                Console.WriteLine(PageContent);
+            }
         }
 
         static void TestFunc()

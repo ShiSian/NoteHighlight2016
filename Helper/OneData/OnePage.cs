@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Helper.OneData;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Helper
@@ -44,7 +41,7 @@ namespace Helper
     }
 
 
-    public class OnePage
+    public class OnePage :  OneItem
     {
         // 属性
         private string ID;
@@ -75,42 +72,85 @@ namespace Helper
             oneDataHelper = new OneDataHelper();
             oneDataHelper.UpdateSpace(RootElem.Name.Namespace);
 
-            ID = RootElem.Attribute("ID").Value;
-            name = RootElem.Attribute("name").Value;
-            dateTime = RootElem.Attribute("dateTime").Value;
-            lastModifiedTime = RootElem.Attribute("lastModifiedTime").Value;
-            pageLevel = RootElem.Attribute("pageLevel").Value;
-            isCurrentlyViewed = RootElem.Attribute("pageLevel").Value;
-            lang = RootElem.Attribute("lang").Value;
+            if (RootElem.Attribute("ID") != null)
+            {
+                ID = RootElem.Attribute("ID").Value;
+            }
+            if (RootElem.Attribute("name") != null)
+            {
+                name = RootElem.Attribute("name").Value;
+            }
+            if (RootElem.Attribute("dateTime") != null)
+            {
+                dateTime = RootElem.Attribute("dateTime").Value;
+            }
+            if (RootElem.Attribute("lastModifiedTime") != null)
+            {
+                lastModifiedTime = RootElem.Attribute("lastModifiedTime").Value;
+            }
+            if (RootElem.Attribute("pageLevel") != null)
+            {
+                pageLevel = RootElem.Attribute("pageLevel").Value;
+            }
+            if (RootElem.Attribute("isCurrentlyViewed") != null)
+            {
+                isCurrentlyViewed = RootElem.Attribute("pageLevel").Value;
+            }
+            if (RootElem.Attribute("lang") != null)
+            {
+                lang = RootElem.Attribute("lang").Value;
+            }
 
 
             // 初始化TagDefs
-            foreach (XElement Elem in RootElem.Elements(OneDataHelper.OneSpace + "TagDef"))
+            if (RootElem.Elements(OneDataHelper.OneSpace + "TagDef") != null)
             {
-                OneTagDef TmpTagDef = new OneTagDef(Elem);
-                oneTagDefs.Add(TmpTagDef);
+                foreach (XElement Elem in RootElem.Elements(OneDataHelper.OneSpace + "TagDef"))
+                {
+                    OneTagDef TmpTagDef = new OneTagDef(Elem);
+                    oneTagDefs.Add(TmpTagDef);
+                }
             }
+
             // 初始化QuickStyleDefs
-            foreach (XElement Elem in RootElem.Elements(OneDataHelper.OneSpace + "QuickStyleDef"))
+            if (RootElem.Elements(OneDataHelper.OneSpace + "QuickStyleDef") != null)
             {
-                OneQuickStyleDef TmpQuickStyleDef = new OneQuickStyleDef(Elem);
-                oneQuickStyleDefs.Add(TmpQuickStyleDef);
+                foreach (XElement Elem in RootElem.Elements(OneDataHelper.OneSpace + "QuickStyleDef"))
+                {
+                    OneQuickStyleDef TmpQuickStyleDef = new OneQuickStyleDef(Elem);
+                    oneQuickStyleDefs.Add(TmpQuickStyleDef);
+                }
             }
+
             // 初始化PageSettings
-            onePageSettings = new OnePageSettings(RootElem.Element(OneDataHelper.OneSpace + "PageSettings"));
-            
+            if (RootElem.Element(OneDataHelper.OneSpace + "PageSettings") != null)
+            {
+                onePageSettings = new OnePageSettings(RootElem.Element(OneDataHelper.OneSpace + "PageSettings"));
+            }
+
             // 初始化Title
-            oneTitle = new OneTitle(RootElem.Element(OneDataHelper.OneSpace + "Title"));
+            if (RootElem.Element(OneDataHelper.OneSpace + "Title") != null)
+            {
+                oneTitle = new OneTitle(RootElem.Element(OneDataHelper.OneSpace + "Title"));
+            }
 
             // 初始化Outline
-            foreach (XElement Elem in RootElem.Elements(OneDataHelper.OneSpace + "Outline"))
+            if (RootElem.Elements(OneDataHelper.OneSpace + "Outline") != null)
             {
-                OneOutline TmpOneOutline = new OneOutline(Elem);
-                oneOutlines.Add(TmpOneOutline);
-            }
+                foreach (XElement Elem in RootElem.Elements(OneDataHelper.OneSpace + "Outline"))
+                {
+                    OneOutline TmpOneOutline = new OneOutline(Elem);
+                    oneOutlines.Add(TmpOneOutline);
+                }
+            }            
         }
 
-        public string ToCSV()
+        public override string ToStr()
+        {
+            return "OnePage String is null.";
+        }
+
+        public override string ToCSV()
         {
             string OutStr = "";
             foreach (OneOutline item in oneOutlines)
@@ -119,6 +159,11 @@ namespace Helper
             }
             OutStr = OneDataHelper.SubStrIndent(OutStr);
             return OneDataHelper.UpdateIndent(OutStr);
+        }
+
+        public override string ToHtml()
+        {
+            return oneOutlines[0].ToHtml();
         }
     }
 }
