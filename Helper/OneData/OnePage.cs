@@ -163,6 +163,13 @@ namespace Helper
 
         public override string ToHtml()
         {
+            /*
+             #separator:tab
+             #html:true
+             #tags column:3
+             正面内容	"背面内容"
+             */
+
             return oneOutlines[0].ToHtml();
         }
     }

@@ -20,7 +20,7 @@ namespace Helper.OneData
         // 元素
         OnePosition onePosition;
         OneSize oneSize;
-        OneOEChildren oneOEChildren;
+        public OneOEChildren oneOEChildren;
 
         public OneOutline(XElement XElem)
         {
@@ -76,13 +76,14 @@ namespace Helper.OneData
         public override string ToHtml()
         {
             string OutlineHtmlStr = "<div ";
-            if (onePosition != null)
-            {
-                //left: 距离左边距离; top: 距离顶部距离
-                OutlineHtmlStr += "style=\"position:absolute;";
-                OutlineHtmlStr += ("left:" + onePosition.x + "px;");
-                OutlineHtmlStr += ("top:" + onePosition.y + "px;\"");
-            }
+            // 【设置距离左侧和顶部的距离】
+            //if (onePosition != null)
+            //{
+            //    //left: 距离左边距离; top: 距离顶部距离
+            //    OutlineHtmlStr += "style=\"position:absolute;";
+            //    OutlineHtmlStr += ("left:" + onePosition.x + "px;");
+            //    OutlineHtmlStr += ("top:" + onePosition.y + "px;\"");
+            //}
             OutlineHtmlStr += (">" + Environment.NewLine);
 
             if (oneOEChildren != null)
@@ -107,7 +108,7 @@ namespace Helper.OneData
 
     public class OneOEChildren : OneItem
     {
-        List<OneOE> oneOEs = new List<OneOE>();
+        private List<OneOE> oneOEs = new List<OneOE>();
 
         public OneOEChildren(XElement XElem, int InIndentNum)
         {
@@ -124,7 +125,14 @@ namespace Helper.OneData
 
         public override string ToStr()
         {
-            return "OneOEChildren to str is empty.";
+            string OEChildrenStr = "";
+
+            foreach (OneOE item in oneOEs)
+            {
+                OEChildrenStr += item.ToStr();
+            }
+
+            return OEChildrenStr;
         }
 
 
@@ -171,9 +179,10 @@ namespace Helper.OneData
         private string spaceBefore;
         private string spaceAfter;
         private string spaceBetween;
+        private string style;
 
         // 元素部分（灵活变化部分，OE的子元素可能是OneOEChildren、OneT、OneList等）
-        private List<OneItem> oneItems = new List<OneItem>();
+        public List<OneItem> oneItems = new List<OneItem>();
 
 
         public OneOE(XElement XElem, int InIndentNum)
@@ -236,6 +245,10 @@ namespace Helper.OneData
             {
                 spaceBetween = XElem.Attribute("spaceBetween").Value;
             }
+            if (XElem.Attribute("style") != null)
+            {
+                style = XElem.Attribute("style").Value;
+            }
 
 
             if (XElem.Elements() != null)
@@ -250,7 +263,14 @@ namespace Helper.OneData
 
         public override string ToStr()
         {
-            return "";
+            string OEStr = "";
+
+            foreach (OneItem item in oneItems)
+            {
+                OEStr += item.ToStr();
+            }
+
+            return OEStr;
         }
 
         public override string ToCSV()
@@ -263,31 +283,53 @@ namespace Helper.OneData
             return OutStr;
         }
 
+        // 判断元素是否还有项目符号或项目编号
+        private bool ContainListItem()
+        {
+            foreach (OneItem item in oneItems)
+            {
+                if (item is OneList || item is OneTag)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public override string ToHtml()
         {
-            string style = "style=\"position:relative;word-wrap:break-word;";
-            //if (IndentNum != 0)
-            //{
-            //    style += "left:30px;";
-            //}
+            string TmpStyle = "style=\"position:relative;word-wrap:break-word;";
+            if (!string.IsNullOrEmpty(style))
+            {
+                TmpStyle += (style + ";");
+            }
             if (spaceBefore != null)
             {
-                style += ("margin-top:" + spaceBefore + "pt;");
+                TmpStyle += ("margin-top:" + spaceBefore + "pt;");
             }
             if (spaceAfter != null)
             {
-                style += ("margin-bottom:" + spaceAfter + "pt;");
+                TmpStyle += ("margin-bottom:" + spaceAfter + "pt;");
             }
             if (alignment != null)
             {
-                style += ("text-align:" + alignment + ";");
+                TmpStyle += ("text-align:" + alignment + ";");
             }
             if (IndentNum != 0)
             {
-                style += "text-indent:-1em;padding-left: 2em;";
+                // 当没有项目符号或项目编号时需要额外缩进两个字节
+                if (ContainListItem())
+                {
+                    TmpStyle += "text-indent:-1em;padding-left: 2em;";
+                }
+                else
+                {
+                    TmpStyle += "text-indent:0em;padding-left: 2.5em;";
+                }
             }
-            style += "\"";
-            string OEHtmlStr = "<div " + style + ">" + Environment.NewLine;
+            TmpStyle += "\"";
+            string OEHtmlStr = "<div " + TmpStyle + ">" + Environment.NewLine;
 
 
             OneOEChildren oneOEChildren = null;

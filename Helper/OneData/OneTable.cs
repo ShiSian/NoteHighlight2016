@@ -38,7 +38,7 @@ namespace Helper.OneData
 
         public override string ToStr()
         {
-            throw new NotImplementedException();
+            return "OneTable";
         }
 
         public override string ToCSV()
@@ -75,10 +75,34 @@ namespace Helper.OneData
             TableHtmlStr += oneColumns.ToHtml();;
 
             // 表格行设置
+            string RowsHtmlstr = "";
             foreach (OneRow item in oneRows)
             {
-                TableHtmlStr += item.ToHtml();
+                string RowHtmlStr = item.ToHtml();
+                RowsHtmlstr += RowHtmlStr;
+
+                // 保存单行表格到本地
+                string TmpOneRowHtmlStr = TableHtmlStr + RowHtmlStr + "</table>" + Environment.NewLine;
+                string TableRowTitle;
+
+                try
+                {
+                    TableRowTitle = item.GetCellContent(0);
+                }
+                catch (Exception)
+                {
+
+                    TableRowTitle = "Failed to get Cell content.";
+                }
+
+                string FilePath = @"D:\OneNoteExport\" + TableRowTitle + ".html";
+                if (!string.IsNullOrEmpty(TableRowTitle) && TableRowTitle.Length < 256)
+                {
+                    OneDataHelper.SaveString2File(TmpOneRowHtmlStr, FilePath);
+                }
+
             }
+            TableHtmlStr += RowsHtmlstr;
 
             TableHtmlStr += ("</table>" + Environment.NewLine);
             return TableHtmlStr;
@@ -109,16 +133,15 @@ namespace Helper.OneData
         {
             //< col width = 200 >
 
-            //float TmpWidth;
-            //if (float.TryParse(width, out TmpWidth))
-            //{
-            //    TmpWidth += 30;
-            //    return "<col width=" + TmpWidth + ">" + Environment.NewLine;
-            //}
-            //else
-            //{
+            float TmpWidth;
+            if (float.TryParse(width, out TmpWidth))
+            {
+                return "<col width=" + TmpWidth*1.3 + ">" + Environment.NewLine;
+            }
+            else
+            {
                 return "<col width=" + width + ">" + Environment.NewLine;
-            //}
+            }
         }
 
         public override string ToStr()
@@ -199,7 +222,7 @@ namespace Helper.OneData
 
         public override string ToStr()
         {
-            throw new NotImplementedException();
+            return oneOEChildren.ToStr();
         }
 
         public override string ToCSV()
@@ -244,7 +267,11 @@ namespace Helper.OneData
             {
                 oneCells.Add(new OneCell(item));
             }
+        }
 
+        public string GetCellContent(int InCellIndex)
+        {
+           return oneCells[InCellIndex].ToStr();
         }
 
         public override string ToStr()

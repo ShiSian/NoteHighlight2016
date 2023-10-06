@@ -13,9 +13,9 @@ namespace TestProject
     {
         static void Main(string[] args)
         {
-            TestOnePage();
+            //TestOnePage();
             //TestFunc();
-
+            Console.WriteLine("\\\"");
 
             Console.ReadKey();
         }
@@ -34,7 +34,7 @@ namespace TestProject
             {
                 string PageContent = XmlDoc.ToString();
                 OneDataHelper.SavePage2Html(PageContent, @"D:\PageContent.html");
-                Console.WriteLine(PageContent);
+                //Console.WriteLine(PageContent);
             }
         }
 

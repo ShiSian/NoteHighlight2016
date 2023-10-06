@@ -39,12 +39,12 @@ namespace Helper.OneData
 
         public override string ToStr()
         {
-            return "";
+            return "OneImage";
         }
 
         public override string ToCSV()
         {
-            return "";
+            return "OneIamge";
         }
 
         public override string ToHtml()
