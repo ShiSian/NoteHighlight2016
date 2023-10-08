@@ -57,6 +57,11 @@ namespace Helper.OneData
 
             return ImageHtmlStr;
         }
+
+        public override void SaveTable()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class OneOCRText

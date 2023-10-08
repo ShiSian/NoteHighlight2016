@@ -198,8 +198,6 @@ namespace NoteHighlightAddin
         [CLSCompliant(false)]
         public void ExportHtml(IRibbonControl control)
         {
-            //MessageBox.Show("Succeed save Html file.");
-
             string CurrentPageID = GetActivedPageID();
             string PageContent;
             OneNoteApplication.GetPageContent(CurrentPageID, out PageContent);
@@ -209,12 +207,31 @@ namespace NoteHighlightAddin
 
                 string FilePath = @"D:\PageContent.html";
                 OneDataHelper.SavePage2Html(PageContent, FilePath);
-
                 MessageBox.Show("Succeed save Html file.");
             }
             else
             {
                 MessageBox.Show("Failed to save Html file.");
+            }
+        }
+
+        // 导出表格
+        [CLSCompliant(false)]
+        public void ExportTable(IRibbonControl control)
+        {
+            string CurrentPageID = GetActivedPageID();
+            string PageContent;
+            OneNoteApplication.GetPageContent(CurrentPageID, out PageContent);
+
+            if (!string.IsNullOrEmpty(PageContent))
+            {
+                string FilePath = @"D:\PageContent.html";
+                OneDataHelper.SavePageTable(PageContent, FilePath);
+                MessageBox.Show("Succeed to save table content.");
+            }
+            else
+            {
+                MessageBox.Show("Failed to save table content.");
             }
         }
 

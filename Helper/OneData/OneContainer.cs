@@ -104,6 +104,11 @@ namespace Helper.OneData
             }
             return "oneOEChildren in OEOutline is null.";
         }
+
+        public override void SaveTable()
+        {
+            oneOEChildren.SaveTable();
+        }
     }
 
     public class OneOEChildren : OneItem
@@ -159,6 +164,14 @@ namespace Helper.OneData
                 OEChildrenHtmlStr += TmpOneOE.ToHtml();
             }
             return OEChildrenHtmlStr;
+        }
+
+        public override void SaveTable()
+        {
+            foreach (OneOE TmpOneOE in oneOEs)
+            {
+                TmpOneOE.SaveTable();
+            }
         }
     }
 
@@ -353,6 +366,15 @@ namespace Helper.OneData
 
             OEHtmlStr += ("</div>" + Environment.NewLine);
             return OEHtmlStr;
+        }
+
+
+        public override void SaveTable()
+        {
+            foreach (OneItem item in oneItems)
+            {
+                item.SaveTable();    
+            }
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace Helper.OneData
@@ -80,32 +81,40 @@ namespace Helper.OneData
             {
                 string RowHtmlStr = item.ToHtml();
                 RowsHtmlstr += RowHtmlStr;
-
-                // 保存单行表格到本地
-                string TmpOneRowHtmlStr = TableHtmlStr + RowHtmlStr + "</table>" + Environment.NewLine;
-                string TableRowTitle;
-
-                try
-                {
-                    TableRowTitle = item.GetCellContent(0);
-                }
-                catch (Exception)
-                {
-
-                    TableRowTitle = "Failed to get Cell content.";
-                }
-
-                string FilePath = @"D:\OneNoteExport\" + TableRowTitle + ".html";
-                if (!string.IsNullOrEmpty(TableRowTitle) && TableRowTitle.Length < 256)
-                {
-                    OneDataHelper.SaveString2File(TmpOneRowHtmlStr, FilePath);
-                }
-
             }
             TableHtmlStr += RowsHtmlstr;
 
             TableHtmlStr += ("</table>" + Environment.NewLine);
             return TableHtmlStr;
+        }
+
+        public override void SaveTable()
+        {
+            string CSVStr = "";
+            foreach (OneRow item in oneRows)
+            {
+                // 保存单行表格到本地
+                string TableRowTitle = item.GetCellContent(0);
+                TableRowTitle = TableRowTitle.Replace("\\", "");
+                TableRowTitle = TableRowTitle.Replace("/", "");
+                TableRowTitle = TableRowTitle.Replace(":", "");
+                TableRowTitle = TableRowTitle.Replace("*", "");
+                TableRowTitle = TableRowTitle.Replace("?", "");
+                TableRowTitle = TableRowTitle.Replace("\"", "");
+                TableRowTitle = TableRowTitle.Replace("<", "");
+                TableRowTitle = TableRowTitle.Replace(">", "");
+                TableRowTitle = TableRowTitle.Replace("|", "");
+
+                string CellContentStr = item.GetCell(1).GetCellContentHtml();
+                CellContentStr = CellContentStr.Replace("\r\n", "");
+                CellContentStr = CellContentStr.Replace("\n", "");
+                CellContentStr = CellContentStr.Replace("\t", "");
+                CellContentStr = CellContentStr.Replace("|", "");
+
+                CSVStr += (TableRowTitle + "|" + CellContentStr + Environment.NewLine);
+            }
+
+            OneDataHelper.SaveString2File(CSVStr, @"D:\\PageContentTable.csv");
         }
     }
     class OneColumn : OneItem
@@ -122,6 +131,11 @@ namespace Helper.OneData
             {
                 isLocked = XElem.Attribute("isLocked").Value;
             }
+        }
+
+        public override void SaveTable()
+        {
+            throw new NotImplementedException();
         }
 
         public override string ToCSV()
@@ -150,7 +164,7 @@ namespace Helper.OneData
         }
     }
 
-    class OneColumns : OneItem
+    public class OneColumns : OneItem
     {
         private List<OneColumn> oneColumns = new List<OneColumn>();
 
@@ -166,6 +180,11 @@ namespace Helper.OneData
         public int Num()
         {
             return oneColumns.Count();
+        }
+
+        public override void SaveTable()
+        {
+            throw new NotImplementedException();
         }
 
         public override string ToCSV()
@@ -190,7 +209,7 @@ namespace Helper.OneData
         }
     }
 
-    class OneCell : OneItem
+    public class OneCell : OneItem
     {
         private string shadingColor;
         private string lastModifiedTime;
@@ -218,6 +237,11 @@ namespace Helper.OneData
             }
 
             oneOEChildren = new OneOEChildren(XElem.Element(OneDataHelper.OneSpace + "OEChildren"), -1);
+        }
+
+        public string GetCellContentHtml()
+        {
+            return oneOEChildren.ToHtml();
         }
 
         public override string ToStr()
@@ -251,6 +275,11 @@ namespace Helper.OneData
             OneCellHtmlStr += "</td>" + Environment.NewLine;
             return OneCellHtmlStr;
         }
+
+        public override void SaveTable()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class OneRow : OneItem
@@ -274,6 +303,10 @@ namespace Helper.OneData
            return oneCells[InCellIndex].ToStr();
         }
 
+        public OneCell GetCell(int InCellIndex)
+        {
+           return oneCells[InCellIndex];
+        }
         public override string ToStr()
         {
             throw new NotImplementedException();
@@ -308,6 +341,11 @@ namespace Helper.OneData
 
             OneRowHtmlStr += ("</tr>" + Environment.NewLine);
             return OneRowHtmlStr;
+        }
+
+        public override void SaveTable()
+        {
+            throw new NotImplementedException();
         }
     }
 }

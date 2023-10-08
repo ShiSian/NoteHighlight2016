@@ -169,8 +169,13 @@ namespace Helper
              #tags column:3
              正面内容	"背面内容"
              */
-
             return oneOutlines[0].ToHtml();
+        }
+
+        //保存页面的表格内容
+        public override void SaveTable()
+        {
+            oneOutlines[0].SaveTable();
         }
     }
 }

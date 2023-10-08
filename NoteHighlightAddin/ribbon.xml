@@ -48,9 +48,10 @@
                 </group>
 
 				<group id="Exprot" label="Export" >
-					<button id="btnExportXML"  label="ExportXML"  size="large" screentip="ExportXML"  onAction="ExportXML"  image="XML.png"   visible="true"/>
-					<button id="btnExportCSV"  label="ExportCSV"  size="large" screentip="ExportCSV"  onAction="ExportCSV"  image="Other.png" visible="true"/>
-					<button id="btnExportHtml" label="ExportHtml" size="large" screentip="ExportHtml" onAction="ExportHtml" image="HTML.png"  visible="true"/>
+					<button id="btnExportXML"   label="ExportXML"   size="large" screentip="ExportXML"   onAction="ExportXML"   image="XML.png"    visible="true"/>
+					<button id="btnExportCSV"   label="ExportCSV"   size="large" screentip="ExportCSV"   onAction="ExportCSV"   image="Other.png"  visible="true"/>
+					<button id="btnExportHtml"  label="ExportHtml"  size="large" screentip="ExportHtml"  onAction="ExportHtml"  image="HTML.png"   visible="true"/>
+					<button id="btnExportTable" label="ExportTable" size="large" screentip="ExportTable" onAction="ExportTable" image="Other.png"  visible="true"/>
 				</group>				
             </tab>
         </tabs>
