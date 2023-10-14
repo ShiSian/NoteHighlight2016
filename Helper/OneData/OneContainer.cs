@@ -191,11 +191,11 @@ namespace Helper.OneData
         private string quickStyleIndex;
         private string spaceBefore;
         private string spaceAfter;
-        private string spaceBetween;
-        private string style;
+        private string spaceBetween;        
+        private string style;                                 // 该字段对OE内容的样式进行了说明，不是所有的OE都有该字段
 
-        // 元素部分（灵活变化部分，OE的子元素可能是OneOEChildren、OneT、OneList等）
-        public List<OneItem> oneItems = new List<OneItem>();
+        private OneQuickStyleDef oneQuickStyleDef;            // OE对象对应的快速样式定义
+        public List<OneItem> oneItems = new List<OneItem>();  // 元素部分（灵活变化部分，OE的子元素可能是OneOEChildren、OneT、OneList等）
 
 
         public OneOE(XElement XElem, int InIndentNum)
@@ -312,6 +312,16 @@ namespace Helper.OneData
 
         public override string ToHtml()
         {
+            // 先获取该对象对应的QuickStyleDef
+            if (oneQuickStyleDef is null)
+            {
+                if (!string.IsNullOrWhiteSpace(quickStyleIndex))
+                {
+                    oneQuickStyleDef = OnePage.GetQuickStyleDef(quickStyleIndex);
+                }
+            }    
+
+
             string TmpStyle = "style=\"position:relative;word-wrap:break-word;";
             if (!string.IsNullOrEmpty(style))
             {
@@ -329,9 +339,37 @@ namespace Helper.OneData
             {
                 TmpStyle += ("text-align:" + alignment + ";");
             }
-            if (IndentNum != 0)
+            // 应用对象的快速样式定义中内容(如果该对象内已经对某个属性进行了定义就不在应用快速样式定义中的内容)
+            if (!(oneQuickStyleDef is null))
             {
-                // 当没有项目符号或项目编号时需要额外缩进两个字节
+                if (!TmpStyle.Contains("color") && !string.IsNullOrEmpty(oneQuickStyleDef.fontColor))
+                {
+                    TmpStyle += ("color:" + oneQuickStyleDef.fontColor + ";");
+                }
+                if (!TmpStyle.Contains("highlightColor") && !string.IsNullOrEmpty(oneQuickStyleDef.highlightColor))
+                {
+                    TmpStyle += ("highlightColor:" + oneQuickStyleDef.highlightColor + ";");
+                }
+                if (!TmpStyle.Contains("font-family") && !string.IsNullOrEmpty(oneQuickStyleDef.font))
+                {
+                    TmpStyle += ("font-family:" + oneQuickStyleDef.font + ";");
+                }
+                if (!TmpStyle.Contains("font-size") && !string.IsNullOrEmpty(oneQuickStyleDef.fontSize))
+                {
+                    TmpStyle += ("font-size:" + oneQuickStyleDef.fontSize + "pt;");
+                }
+                if (!TmpStyle.Contains("margin-top") && !string.IsNullOrEmpty(oneQuickStyleDef.spaceBefore))
+                {
+                    TmpStyle += ("margin-top:" + oneQuickStyleDef.spaceBefore + "pt;");
+                }
+                if (!TmpStyle.Contains("margin-bottom") && !string.IsNullOrEmpty(oneQuickStyleDef.spaceAfter))
+                {
+                    TmpStyle += ("margin-bottom:" + oneQuickStyleDef.spaceAfter + "pt;");
+                }
+            }
+            // 当没有项目符号或项目编号时需要额外缩进两个字节
+            if (IndentNum != 0)
+            {                
                 if (ContainListItem())
                 {
                     TmpStyle += "text-indent:-1em;padding-left: 2em;";

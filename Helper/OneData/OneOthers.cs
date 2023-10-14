@@ -14,14 +14,14 @@ namespace Helper
     public class OneQuickStyleDef
     {
         // 属性
-        private string index;
-        private string name;
-        private string fontColor;
-        private string highlightColor;
-        private string font;
-        private string fontSize;
-        private string spaceBefore;
-        private string spaceAfter;
+        public string index;
+        public string name;
+        public string fontColor;
+        public string highlightColor;
+        public string font;
+        public string fontSize;
+        public string spaceBefore;
+        public string spaceAfter;
 
 
         public OneQuickStyleDef()
@@ -31,66 +31,39 @@ namespace Helper
 
         public OneQuickStyleDef(XElement XElem)
         {
-            //index = Elem.desa
-            index = XElem.Attribute("index").Value;
-            name = XElem.Attribute("name").Value;
-            fontColor = XElem.Attribute("fontColor").Value;
-            highlightColor = XElem.Attribute("highlightColor").Value;
-            font = XElem.Attribute("font").Value;
-            fontSize = XElem.Attribute("fontSize").Value;
-            spaceBefore = XElem.Attribute("spaceBefore").Value;
-            spaceAfter = XElem.Attribute("spaceAfter").Value;
+            if (XElem.Attribute("index").Value != null)
+            {
+                index = XElem.Attribute("index").Value;
+            }
+            if (XElem.Attribute("name").Value != null)
+            {
+                name = XElem.Attribute("name").Value;
+            }
+            if (XElem.Attribute("fontColor").Value != null)
+            {
+                fontColor = XElem.Attribute("fontColor").Value;
+            }
+            if (XElem.Attribute("highlightColor").Value != null)
+            {
+                highlightColor = XElem.Attribute("highlightColor").Value;
+            }
+            if (XElem.Attribute("font").Value != null)
+            {
+                font = XElem.Attribute("font").Value;
+            }
+            if (XElem.Attribute("fontSize").Value != null)
+            {
+                fontSize = XElem.Attribute("fontSize").Value;
+            }
+            if (XElem.Attribute("spaceBefore").Value != null)
+            {
+                spaceBefore = XElem.Attribute("spaceBefore").Value;
+            }
+            if (XElem.Attribute("spaceAfter").Value != null)
+            {
+                spaceAfter = XElem.Attribute("spaceAfter").Value;
+            }
         }
-
-        public string Index
-        {
-            get { return index; }
-            set { index = value; }
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public string FontColor
-        {
-            get { return fontColor; }
-            set { fontColor = value; }
-        }
-
-        public string HighlightColor
-        {
-            get { return highlightColor; }
-            set { highlightColor = value; }
-        }
-
-        public string Font
-        {
-            get { return font; }
-            set { font = value; }
-        }
-
-        public string FontSize
-        {
-            get { return fontSize; }
-            set { fontSize = value; }
-        }
-
-        public string SpaceBefore
-        {
-            get { return spaceBefore; }
-            set { spaceBefore = value; }
-        }
-
-        public string SpaceAfter
-        {
-            get { return spaceAfter; }
-            set { spaceAfter = value; }
-        }
-
-
     }
 
     /// <summary>

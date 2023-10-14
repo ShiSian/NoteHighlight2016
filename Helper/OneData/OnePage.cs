@@ -54,23 +54,47 @@ namespace Helper
 
         // 标签部分
         private List<OneTagDef> oneTagDefs = new List<OneTagDef>();
-        private List<OneQuickStyleDef> oneQuickStyleDefs = new List<OneQuickStyleDef>();
+        public static List<OneQuickStyleDef> oneQuickStyleDefs = new List<OneQuickStyleDef>();
         private OnePageSettings onePageSettings;
         private OneTitle oneTitle;
         private List<OneOutline> oneOutlines = new List<OneOutline>();
 
-        // 其他字段
-        public OneDataHelper oneDataHelper;
+        // 根据索引获取OneQuickStyleDef
+        public static OneQuickStyleDef GetQuickStyleDef(string InStyleIndex)
+        {
+            // 先尝试根据索引直接查找对应的样式定义
+            int TmpStyleIndex;
+            if (int.TryParse(InStyleIndex, out TmpStyleIndex))
+            {
+                OneQuickStyleDef TmpQuickStyleDef = oneQuickStyleDefs[TmpStyleIndex];
+                if (TmpQuickStyleDef.index == InStyleIndex)
+                {
+                    return TmpQuickStyleDef;
+                }
+            }
 
-        //public OnePage() { }
+
+            // 获取失败，遍历寻找
+            foreach (OneQuickStyleDef TmpQuickStyleDef in oneQuickStyleDefs)
+            {
+                if (TmpQuickStyleDef.index == InStyleIndex)
+                {
+                    return TmpQuickStyleDef;
+                }
+            }
+
+            // 寻找失败，返回空
+            return null;
+        }
+
+
         public OnePage(XDocument XDoc)
         {
             // 获取根组件
             XElement RootElem = XDoc.Root;
 
             // 元素公用类
-            oneDataHelper = new OneDataHelper();
-            oneDataHelper.UpdateSpace(RootElem.Name.Namespace);
+            OneDataHelper.UpdateSpace(RootElem.Name.Namespace);
 
             if (RootElem.Attribute("ID") != null)
             {
@@ -142,8 +166,11 @@ namespace Helper
                     OneOutline TmpOneOutline = new OneOutline(Elem);
                     oneOutlines.Add(TmpOneOutline);
                 }
-            }            
+            }
+
+            OneDataHelper.InitCurrentPage(this);
         }
+
 
         public override string ToStr()
         {
